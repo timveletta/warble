@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { auth } from '@clerk/nextjs';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 const prisma = new PrismaClient();
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 		},
 	});
 
-	revalidateTag('posts');
+	revalidatePath('/');
 
 	return NextResponse.json(post);
 }
