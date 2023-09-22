@@ -5,6 +5,8 @@ import WarbleForm from './warble-form';
 import { PrismaClient } from '@prisma/client';
 import PostDisplay from './post-display';
 
+export const revalidate = 1;
+
 const prisma = new PrismaClient();
 
 export default async function Home() {
