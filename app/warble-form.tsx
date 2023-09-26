@@ -1,8 +1,14 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const WarbleForm = () => {
+	const router = useRouter();
 	const [error, setError] = React.useState<string | null>(null);
+
+	const refreshPage = () => {
+		router.refresh();
+	};
 
 	const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -25,6 +31,7 @@ const WarbleForm = () => {
 			setError(json.message);
 		} else {
 			target.reset();
+			refreshPage();
 		}
 	};
 

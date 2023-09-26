@@ -2,23 +2,13 @@ import { UserButton, auth, currentUser } from '@clerk/nextjs';
 import type { User } from '@clerk/nextjs/api';
 import Link from 'next/link';
 import WarbleForm from './warble-form';
-import { PrismaClient } from '@prisma/client';
 import PostDisplay from './post-display';
 
-export const revalidate = 1;
-
-const prisma = new PrismaClient();
-
 export default async function Home() {
-	const clerkAuth = auth();
 	const user: User | null = await currentUser();
-
-	const posts = await prisma.post.findMany({
-		orderBy: {
-			createdAt: 'desc',
-		},
-		take: 10,
-	});
+	const posts = await fetch(
+		`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`
+	).then((res) => res.json());
 
 	return (
 		<>
